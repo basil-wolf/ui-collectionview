@@ -198,6 +198,56 @@ export function templateSelector(item: any, index: number, items: any) {
 }
 ```
 
+	
+### Multi-Column Example
+
+Create a simple array of objects in your JS/TS file.
+
+```typescript
+const items = [
+    { index: 0, name: 'TURQUOISE', color: '#1abc9c' },
+    { index: 1, name: 'EMERALD', color: '#2ecc71' },
+    { index: 2, name: 'PETER RIVER', color: '#3498db' },
+    { index: 3, name: 'AMETHYST', color: '#9b59b6' },
+    { index: 4, name: 'WET ASPHALT', color: '#34495e' },
+    { index: 5, name: 'GREEN SEA', color: '#16a085' },
+    { index: 6, name: 'NEPHRITIS', color: '#27ae60' },
+    { index: 7, name: 'BELIZE HOLE', color: '#2980b9' },
+    { index: 8, name: 'WISTERIA', color: '#8e44ad' },
+    { index: 9, name: 'MIDNIGHT BLUE', color: '#2c3e50' }
+];
+```
+
+```xml
+<!-- test-page.xml -->
+<gv:CollectionView items="{{ items }}" itemTemplateSelector="templateSelector" colWidth="50%" spanSize="spanSizeSelector" itemTap="onItemTap" loadMoreItems="gridViewLoadMoreItems">
+                <gv:CollectionView.itemTemplates>
+                    <template key="others">
+                        <GridLayout rows="*, auto">
+                            <StackLayout backgroundColor="{{ color }}" height="120">
+                                <Label text="{{ name }}" />
+                            </StackLayout>
+                        </GridLayout>
+                    </template>
+                    <template key="first">
+                        <GridLayout rows="*, auto">
+                            <StackLayout backgroundColor="{{ color }}" height="120">
+                                <Label text="{{ name }}" />
+                            </StackLayout>
+			</GridLayout>
+		</template>
+	</gv:CollectionView.itemTemplates>
+</gv:CollectionView>
+```
+```ts
+export function templateSelector(item: any, index: number, items: any) {
+  return index <= 5 ? "first" : "others";
+}
+export function spanSizeSelector(item, index) {
+  return index <= 5 ? 1 : 2;
+}
+```
+	
 
 [](#usage-in-angular)
 
